@@ -1,6 +1,0 @@
-spring:
-  profiles:
-    active: dev
-#To Test cluster uncomment below .
-# profiles:
-#   active: prod

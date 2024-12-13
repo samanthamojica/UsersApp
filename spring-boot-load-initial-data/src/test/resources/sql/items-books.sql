@@ -1,2 +1,0 @@
-INSERT INTO ITEM (name) VALUES ('Book-1');
-INSERT INTO ITEM (name) VALUES ('Book-2');
