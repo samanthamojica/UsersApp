@@ -1,0 +1,6 @@
+server:
+  port: 4431
+  ssl:
+    certificate: /etc/pki/tls/certs/ProjectsSam.pem
+    certificate-private-key: /etc/pki/tls/private/ProjectsSam.key
+    enabled: true

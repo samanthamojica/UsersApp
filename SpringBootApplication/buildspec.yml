@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  pre_build:
+    commands: 
+      # Navigate to the Gateway directory
+      - cd SpringBootApplication/
+      - export CODEARTIFACT_TOKEN=$(aws codeartifact get-authorization-token --domain projects-samantha --domain-owner 872515256646 --region us-east-1 --query authorizationToken --output text)
+      - echo "<settings><servers><server><id>projects-samantha-repository-samantha</id><username>aws</username><password>${CODEARTIFACT_TOKEN}</password></server></servers></settings>" > settings.xml
+
+  build:
+    commands:
+      # Run Maven clean package and deploy with the prod profile
+      - mvn -s settings.xml clean package deploy
+
+artifacts:
+  files:
+    - target/UsersApp-0.0.1-SNAPSHOT.jar
+    - appspec.yml
+    - scripts/**
+  discard-paths: no
+  base-directory: SpringBootApplication/

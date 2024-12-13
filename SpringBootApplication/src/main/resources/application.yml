@@ -1,0 +1,26 @@
+# jpa config
+
+# JDBC connection properties
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: ""
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true        
+        
+server:
+  port: 8080
+  servlet:
+    context-path: /users-app-services
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
