@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ import com.boot.rest.base.model.User;
 import com.boot.rest.base.service.UserService;
 
 @RestController
-@RequestMapping(value = "/v1/user")
+@RequestMapping(value = "/api/v1/user")
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -57,4 +58,11 @@ public class UserController {
 
 		this.userService.delete(id);
 	}
+	
+	@GetMapping(value = "/admin")
+	@ResponseStatus(value = HttpStatus.OK)
+	public String getAdminData() {
+		return "Hello admin";
+	}
+	
 }

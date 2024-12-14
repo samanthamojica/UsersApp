@@ -2,6 +2,12 @@
 
 # JDBC connection properties
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.url-public}/auth/realms/${keycloak.realms}
+          jwk-set-uri: ${keycloak.url-private}/auth/realms/${keycloak.realms}/protocol/openid-connect/certs
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -14,7 +20,14 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true        
-        
+
+keycloak:
+  resource-id: java-client
+  principal-attribute: preferred_username
+  url-public: https://35.153.45.216:8443
+  url-private: https://ip-10-0-140-16.ec2.internal:8443
+  realms: dummy-app
+
 server:
   port: 8080
   servlet:
@@ -24,3 +37,16 @@ management:
     web:
       exposure:
         include: health
+        
+logging:
+  level:
+    root: debug
+    javax:
+      management:
+        remote:
+          rmi: info
+    sun:
+      rmi: info
+    jdk:
+      event:
+        security: debug  

@@ -1,2 +1,5 @@
+keycloak:
+  url-public: http://localhost:8080
+  url-private: http://localhost:8080
 server:
   port: 8082
