@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/users-app-ui/",
             "outputPath": "dist/angular-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -101,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c68041cb-18e4-49b4-95ab-c1264d65d483"
   }
 }

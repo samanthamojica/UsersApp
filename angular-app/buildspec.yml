@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - 'cd angular-app/'
+      - 'npm ci' #npm install
+      - 'npm i -g @angular/cli@17.3.0'
+  build:
+    commands:
+      - 'ng build'
+  post_build:
+    commands:
+      - ls -l
+      #- aws codeartifact login --tool npm --repository repository-samantha --domain projects-samantha --domain-owner 872515256646 --region us-east-1
+      #- npm publish --registry https://projects-samantha-872515256646.d.codeartifact.us-east-1.amazonaws.com/npm/repository-samantha/ --access public
+
+artifacts:
+  files:
+    - 'dist/angular-app/'
+    - 'appspec.yml'
+    - 'scripts/**'
+  discard-paths: no
+  base-directory: 'angular-app/'
