@@ -8,7 +8,7 @@ import { User } from '../user.model';
 })
 export class UserService {
 
-  private basUrl = "http://localhost:8080/user"
+  private basUrl = "/users-app-services/v1/user"
 
   constructor(private httpClient: HttpClient) {
 
@@ -27,7 +27,7 @@ export class UserService {
   }
 
   updateUser(id:number, user:User): Observable<Object>{
-    return this.httpClient.put(`${this.basUrl}/${id}`, user);
+    return this.httpClient.put(`/users-app-services/v1/user/${id}`, user);
   }
 
   deleteUser(id:number): Observable<Object>{

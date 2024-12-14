@@ -19,8 +19,7 @@ import com.boot.rest.base.model.User;
 import com.boot.rest.base.service.UserService;
 
 @RestController
-@RequestMapping(value = "user")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/v1/user")
 public class UserController {
 	@Autowired
 	private UserService userService;
