@@ -17,6 +17,8 @@ export interface UserProfile {
 export class KeycloakService {
 
   private _keycloack: Keycloak | undefined;
+  
+  refreshInterval: any;
 
 
   constructor() { }
@@ -53,6 +55,8 @@ export class KeycloakService {
         this._profile.roles = tokenParsed.resource_access['angular-client']?.roles || [];
       }
       console.log(this._profile);
+      this.refreshInterval = setInterval(() => {
+        this.refreshToken();}, 5000)
     }
     
   }
@@ -66,6 +70,25 @@ export class KeycloakService {
 
   userHasWriteRole(){
     return this.profile?.roles.some( role => role === "escritura" || role === "admin")??false;
+  }
+
+
+  refreshToken(){
+    this.keycloack
+    .updateToken()
+    .then(refreshed => {
+        if(refreshed){
+          console.log('****toke refrescado');
+          const tokenParsed = this.keycloack.tokenParsed;
+        }else{
+          console.log('----toke no refrescado');
+        }
+        const tokenParsed = this.keycloack.tokenParsed;
+        if(tokenParsed && tokenParsed.resource_access && this._profile){
+          this._profile.roles = tokenParsed.resource_access['angular-client']?.roles || [];
+        } 
+      }
+    );
   }
 
 }

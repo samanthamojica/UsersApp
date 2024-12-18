@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../user.model';
 import { KeycloakService } from '../keycloak/keycloak.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-list',
@@ -37,6 +38,11 @@ export class UserListComponent implements OnInit {
     this.userService.deleteUser(id).subscribe(data => {
       console.log(data);
       this.getUsers();
-    });
+    },this.errorHandler);
+  }
+
+  errorHandler(e:HttpErrorResponse){
+    alert(`Error al borrar: ${e.error??e.message}`)
+
   }
 }

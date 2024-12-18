@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { KeycloakService } from './keycloak/keycloak.service';
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,15 @@ export class AppComponent {
 
 
   constructor(
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private session: SessionService
   ) {
   }
 
   ngOnInit(): void {
+    this.session.setupActivityListeners();
     this.canCreate = this.keycloakService.userHasWriteRole();
+
   }
 
 
