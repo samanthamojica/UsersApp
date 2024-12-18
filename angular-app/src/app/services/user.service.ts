@@ -8,7 +8,7 @@ import { User } from '../user.model';
 })
 export class UserService {
 
-  private basUrl = "/users-app-services/v1/user"
+  private basUrl = "/users-app-services/api/v1/user"
 
   constructor(private httpClient: HttpClient) {
 

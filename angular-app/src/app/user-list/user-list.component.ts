@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../user.model';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 @Component({
   selector: 'app-user-list',
@@ -11,13 +12,15 @@ import { User } from '../user.model';
 export class UserListComponent implements OnInit {
 
   users: User[] | undefined;
+  canUpdate: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router,  private keycloakService: KeycloakService) {
 
   }
 
   ngOnInit(): void {
     this.getUsers();
+    this.canUpdate = this.keycloakService.userHasWriteRole();
   }
 
   private getUsers() {

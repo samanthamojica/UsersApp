@@ -35,6 +35,7 @@ public class SecurityWebConfig {
                             .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole("GET","usuario")
                             .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAnyRole("POST")
                             .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAnyRole("PUT")
+                            .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAnyRole("admin","DELETE")
                             .anyRequest().authenticated()
                  )
                 .oauth2ResourceServer(auth ->

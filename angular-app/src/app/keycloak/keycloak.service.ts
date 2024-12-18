@@ -45,6 +45,27 @@ export class KeycloakService {
       onLoad: 'login-required'
     })
 
+    if(authenticated){
+      this._profile = (await this._keycloack?.loadUserProfile()) as UserProfile;
+      this._profile.token = this.keycloack.token || '';
+      const tokenParsed = this.keycloack.tokenParsed;
+      if(tokenParsed && tokenParsed.resource_access){
+        this._profile.roles = tokenParsed.resource_access['angular-client']?.roles || [];
+      }
+      console.log(this._profile);
+    }
+    
+  }
+
+  async logout(){
+    this.keycloack.logout({
+      //redirectUri: "http://localhost:8080/users-app-ui/#/login",
+      redirectUri: "https://35.153.45.216:8443/users-app-ui/#/login",
+    });
+  }
+
+  userHasWriteRole(){
+    return this.profile?.roles.some( role => role === "escritura" || role === "admin")??false;
   }
 
 }

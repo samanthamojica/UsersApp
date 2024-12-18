@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from './keycloak/keycloak.service';
+import { HttpTokenInterceptor, httpTokenInterceptor } from './interceptors/http-token.interceptor';
 
 export function kcFactory(kcFactory: KeycloakService){
   return () => kcFactory.init();
@@ -28,12 +29,20 @@ export function kcFactory(kcFactory: KeycloakService){
     HttpClientModule,
     FormsModule
   ],
-  providers: [{
-    provide: APP_INITIALIZER,
-    deps: [KeycloakService],
-    useFactory: kcFactory,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      deps: [KeycloakService],
+      useFactory: kcFactory,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      //useFactory: httpTokenInterceptor,
+      useClass: HttpTokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
